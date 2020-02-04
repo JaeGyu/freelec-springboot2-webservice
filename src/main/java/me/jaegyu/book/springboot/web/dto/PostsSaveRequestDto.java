@@ -7,12 +7,19 @@ import me.jaegyu.book.springboot.domain.posts.Posts;
 
 @Getter
 @NoArgsConstructor
-@Builder
 public class PostsSaveRequestDto {
 
     private String title;
     private String content;
     private String author;
+
+    @Builder
+    PostsSaveRequestDto(String title, String content, String author) {
+        this.title = title;
+        this.content = content;
+        this.author = author;
+    }
+
 
     public Posts toEntity() {
         return Posts.builder()
