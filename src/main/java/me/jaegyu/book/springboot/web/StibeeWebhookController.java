@@ -14,8 +14,16 @@ import java.util.Map;
 /*
 *  {id=56391, action=UNSUBSCRIBED, actionType=MANUAL, subscribers=[{email=jg@XXX.com}]}
 *
+*    RESUBSCRIBED
+*
 * id를 이용해서 IP와 id를 가자고 보안 처리를 한다.
 * IP가 맞아야 하고 application.properties에 입력해놓은 id까지 맞아야 한다.
+*
+* 회원이 메일 수신거부를 하면 stibee의 회원 정보에 수신거부로 상태가 변경되고
+* 웹훅을 보낸다.
+*
+* 하나의 주소록은 여러개의 웹훅을 가질 수 있다.
+*
 * */
 
 @RestController
@@ -26,7 +34,6 @@ public class StibeeWebhookController {
 
     @PostMapping(value = "/stibee", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public String webHook(HttpServletRequest request, @RequestBody Map<String, Object> params) {
-
 
         System.out.println(">>> WebHook ");
         System.out.println(params);
